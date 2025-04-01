@@ -1,4 +1,4 @@
-﻿/* Archive Cache Manager - A LaunchBox plugin which extracts and caches ROM
+/* Archive Cache Manager - A LaunchBox plugin which extracts and caches ROM
  * archives, letting you play games faster.
  * 
  * Copyright (C) 2021  fraganator
@@ -52,6 +52,7 @@
  * downloaded metadata.xml, and performing data backups.
  */
 
+using System.Globalization;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -63,11 +64,10 @@ namespace ArchiveCacheManager
         static void Main(string[] args)
         {
 #if DEBUG
-            Debugger.Launch();
+            //Debugger.Launch();
 #endif
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
+			//Stopwatch stopwatch = new Stopwatch();
+            //stopwatch.Start();
             Logger.Log("========");
             Logger.Log(string.Format("Archive Cache Manager started with arguments: {0}", string.Join(" ", args)));
 
@@ -86,7 +86,12 @@ namespace ArchiveCacheManager
                         // Expected command: 7z.exe l <rom path> -slt
                         case "l":
                             Logger.Log("Running in list mode.");
-                            ListArchive(args);
+							if (args.Last() == "-slt")
+							{
+								ListArchive(args);
+								break;
+							}
+                            Zip.Call7z(args);
                             break;
                         // Expected command: 7z.exe c <archive size>
                         case "c":
@@ -107,7 +112,7 @@ namespace ArchiveCacheManager
                 }
             }
 
-            Logger.Log($"Completed in {stopwatch.ElapsedMilliseconds}ms.");
+            //Logger.Log($"Completed in {stopwatch.ElapsedMilliseconds}ms.");
         }
 
         /// <summary>
