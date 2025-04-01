@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,16 +38,20 @@ namespace ArchiveCacheManager
             for (int i = 0; i < fileList.Length; i++)
             {
                 fileListGridView.Rows.Add(new object[] { fileList[i] });
-                if (string.Equals(fileList[i], selection, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    fileListGridView.Rows[i].Selected = true;
-                    fileListGridView.CurrentCell = fileListGridView.Rows[i].Cells["File"];
-                }
+				if (!string.IsNullOrEmpty(selection))
+				{
+					if (string.Equals(fileList[i], selection.Replace("\"", ""), StringComparison.InvariantCultureIgnoreCase))
+					{
+						fileListGridView.Rows[i].Selected = true;
+						fileListGridView.CurrentCell = fileListGridView.Rows[i].Cells["File"];
+					}
+				}
             }
 
             // Check that setting the selected item above actually worked. If not, set it to the first item.
             if (fileListGridView.SelectedRows.Count == 0)
             {
+				Logger.Log(string.Format("Could not find {0}\r\n", selection));
                 fileListGridView.Rows[0].Selected = true;
                 fileListGridView.CurrentCell = fileListGridView.Rows[0].Cells["File"];
             }
