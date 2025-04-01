@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -219,7 +219,8 @@ namespace ArchiveCacheManager
             var (stdout, stderr, exitCode) = Run7z(argString);
 
             // Print the results to console and set the error code for LaunchBox to deal with
-            Console.Write(stdout);
+            Logger.Log(string.Format("7-zip launched with args {0}\r\n", argString));
+			Console.Write(stdout);
             Console.Write(stderr);
             Environment.ExitCode = exitCode;
         }
@@ -232,6 +233,7 @@ namespace ArchiveCacheManager
         static (string, string, int) Run7z(string args, bool redirectOutput = false, bool redirectError = false)
         {
             (string stdout, string stderr, int exitCode) = ProcessUtils.RunProcess(PathUtils.GetLaunchBox7zPath(), args, redirectOutput, ExtractionProgress, redirectError);
+            Logger.Log(string.Format("7-zip launched with args {0}\r\n", args));
 
             if (exitCode != 0)
             {
