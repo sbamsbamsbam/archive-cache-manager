@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -94,7 +94,7 @@ namespace ArchiveCacheManager
 
                 DiskUtils.CreateFile(PathUtils.GetArchiveCacheExtractingFlagPath(LaunchInfo.GetArchiveCachePath(disc)));
                 ClearCacheSpace(LaunchInfo.GetSize(disc));
-                Logger.Log(string.Format("Extracting archive to \"{0}\".", LaunchInfo.GetArchiveCachePath(disc)));
+                Logger.Log(string.Format("Extracting file {1} to \"{0}\".", LaunchInfo.GetArchiveCachePath(disc), singleFile));
 
                 var result = LaunchInfo.Extractor.Extract(LaunchInfo.GetArchivePath(disc), LaunchInfo.GetArchiveCachePath(disc), singleFile.ToSingleArray());
                 if (result)
@@ -267,7 +267,7 @@ namespace ArchiveCacheManager
                 if (LaunchInfo.MatchFileList(fileList, selectedFile.ToSingleArray()).Length > 0)
                 {
                     filteredFileList.Add(selectedFile);
-                    Logger.Log(string.Format("Selected individual file from archive \"{0}\".", selectedFile));
+                    Logger.Log(string.Format("Selected the file from archive \"{0}\".", selectedFile));
                     return filteredFileList;
                 }
             }
@@ -307,7 +307,7 @@ namespace ArchiveCacheManager
                 {
                     string selectedFilePath = Path.Combine(archiveCachePath, LaunchInfo.Game.SelectedFile);
                     filteredFileList.Add(selectedFilePath);
-                    Logger.Log(string.Format("Selected individual file from archive \"{0}\".", LaunchInfo.Game.SelectedFile));
+                    Logger.Log(string.Format("Selected one file from archive \"{0}\".", LaunchInfo.Game.SelectedFile));
                     return filteredFileList;
                 }
             }
