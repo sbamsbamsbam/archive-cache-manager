@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using System.Text;
 using System.IO;
@@ -24,6 +24,7 @@ namespace ArchiveCacheManager
         private static readonly string gameIndexFileName = @"game-index.ini";
         private static readonly string gameInfoFileName = @"game.ini";
         private static readonly string default7zFileName = @"7z.exe";
+        private static readonly string defaultdllFileName = @"ArchiveCacheManager.dll";
         private static readonly string alt7zFileName = @"7-zip.exe";
         private static readonly string tempPath = @"Temp";
         private static readonly string tempArchiveFilename = @"temp.zip";
@@ -114,7 +115,7 @@ namespace ArchiveCacheManager
             string path;
 
             // Called from <LaunchBox>\ThirdParty\7-Zip\7z.exe
-            if (string.Equals(assemblyFileName, default7zFileName, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(assemblyFileName, defaultdllFileName, StringComparison.InvariantCultureIgnoreCase))
             {
                 // Call GetFullPath to resolve ..\.. in path
                 path = Path.GetFullPath(Path.Combine(assemblyDirectory, @"..\.."));
@@ -160,7 +161,7 @@ namespace ArchiveCacheManager
             string path;
 
             // Called from <LaunchBox>\ThirdParty\7-Zip\7z.exe
-            if (string.Equals(assemblyFileName, default7zFileName, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(assemblyFileName, defaultdllFileName, StringComparison.InvariantCultureIgnoreCase))
             {
                 path = Path.Combine(launchBoxRootPath, relative7zPath, alt7zFileName);
             }
