@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -34,7 +34,6 @@ namespace ArchiveCacheManager
                 // In case where game is launched, but launch failed or aborted, 7z isn't cleaned up. If this code then runs, it will
                 // call the archive cache manager version of 7z, which will not return the correct results (file priority will be applied,
                 // and the first file listing removed. Restore 7z here, just in case it wasn't cleaned up properly previously.
-                GameLaunching.Restore7z();
 
                 string[] fileList = new Zip().List(path);
 
