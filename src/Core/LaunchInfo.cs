@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -322,10 +322,14 @@ namespace ArchiveCacheManager
                     {
                         mGame.SelectedFile = GetPriorityFileList(GetFileList()).ElementAtOrDefault(0) ?? GetFileList().ElementAtOrDefault(0);
                     }
-
-                    if (!string.IsNullOrEmpty(mGame.SelectedFile))
+					else
+					{
+						mGame.SelectedFile = mGame.SelectedFile.Replace("\"", "");
+					}
+					if (!string.IsNullOrEmpty(mGame.SelectedFile))
                     {
-                        List<string> standaloneList = Utils.SplitExtensions(Config.StandaloneExtensions).ToList();
+						Logger.Log(string.Format("Selected {0}, {1}\r\n", mGame.GameId, mGame.SelectedFile));
+						List<string> standaloneList = Utils.SplitExtensions(Config.StandaloneExtensions).ToList();
                         List<string> metadataList = Utils.SplitExtensions(Config.MetadataExtensions).ToList();
                         List<string> excludeList = new List<string>(metadataList);
 
@@ -563,7 +567,7 @@ namespace ArchiveCacheManager
 
             if (mGameCacheData.Config.SmartExtract && !string.IsNullOrEmpty(mGame.SelectedFile))
             {
-                mGameCacheData.ArchiveInCache &= File.Exists(Path.Combine(mGameCacheData.ArchiveCachePath, mGame.SelectedFile));
+                mGameCacheData.ArchiveInCache &= File.Exists(Path.Combine(mGameCacheData.ArchiveCachePath, mGame.SelectedFile.Replace("\"", "")));
             }
 
             return (bool)mGameCacheData.ArchiveInCache;
