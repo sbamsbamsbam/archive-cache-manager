@@ -2,6 +2,8 @@
 ## v2.17 (2025-03-31)
 * Update to net9.0 framework
 * replace ini-parser by ConfigParser
+* replace 7zip by 7zip-zstd
+  
 ## v2.16 (2023-02-10)
 * New M3U name option - "Disc 1 Filename"
     * Always use the filename of the first disc of a multi-disc game for the m3u file, regardless of which disc was launched
